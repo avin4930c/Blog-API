@@ -10,6 +10,7 @@ import {
     Transition,
 } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 const initialNavigation = [
     { name: 'Blogs', href: '#', current: true },
@@ -49,9 +50,11 @@ export default function NavBar() {
                                     )}
                                 </DisclosureButton>
                             </div>
-                            <div className='px-5 py-2 pr-10 text-lg text-white font-bold pl-10'>Transponder Medium</div>
+
+                            <div className='px-5 py-2 pr-10 text-lg text-white font-bold pl-10'><Link to="/" >Transponder Medium</Link></div>
+
                             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                                
+
                                 <div className="hidden sm:ml-6 sm:block">
                                     <div className="flex space-x-4">
                                         {navigation.map((item) => (
