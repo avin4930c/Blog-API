@@ -4,6 +4,7 @@ const session = require('express-session');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const cors = require('cors')
 const compression = require('compression');
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
@@ -33,6 +34,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
+
+app.use(cors());
 
 app.use(session({
   secret: 'luffy',

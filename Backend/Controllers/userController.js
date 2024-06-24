@@ -13,31 +13,55 @@ exports.login_get = asyncHandler(async (req, res) => {
 });
 
 exports.register_post = asyncHandler(async (req, res) => {
-    const { username, mail_address, first_name, last_name, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
-        username,
-        mail_address,
-        first_name,
-        last_name,
-        password: hashedPassword,
-    });
-    user.save()
-    res.redirect('/user/login');
+    try {
+        const { first_name, last_name, email, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const userExists = await User.findOne({ mail_address: email });
+        const user = new User({
+            username: email,
+            mail_address: email,
+            first_name,
+            last_name,
+            password: hashedPassword,
+        });
+        if (userExists) {
+            return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+        }
+        user.save()
+        res.status(201).json({ message: 'User created successfully' })
+    } catch (error) {
+        console.error('Error during user registration:', error);
+        res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+    }
 })
 
 exports.login_post = asyncHandler(async (req, res) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    console.log(email)
+    const user = await User.findOne({ mail_address: email });
+    console.log(user);
     if (user && await bcrypt.compare(password, user.password)) {
-        const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '2min' });
-        req.session.token = token;
-        req.session.user = { id: user._id, username: user.username };
-        res.redirect('/');
-      } else {
+        const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1min' });
+        res.json({ auth: true, token });
+    } else {
         res.status(401).send('Invalid username or password');
-      }
+    }
 });
+
+exports.fetch_user = asyncHandler(async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ errors: [{ msg: 'User not found' }] });
+        }
+        res.json(user);
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+    }
+})
 
 exports.logout = asyncHandler(async (req, res) => {
     req.session.destroy(err => {

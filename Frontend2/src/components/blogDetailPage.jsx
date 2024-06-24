@@ -13,6 +13,11 @@ function BlogDetailPage(data) {
     return (
         <section>
             <div className="m-auto max-w-[90%]">
+                <div className="w-1/2 max-lg:w-full m-auto text-center my-3">
+                    <button className="w-full px-6 py-2 text-lg text-black bg-yellow-400 border border-yellow-500 rounded-lg hover:bg-yellow-500 hover:border-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-offset-2 transition duration-300 ease-in-out">
+                        Edit Blog
+                    </button>
+                </div>
                 <h1 className="text-5xl py-4 text-center w-3/4 max-lg:w-full m-auto">{detailData.title}</h1>
                 <p className="font-thin text-center"><span className="font-semibold">{detailData.category}</span> - {detailData.readTime} - {detailData.date}</p>
                 <div className="font-medium text-center py-2">Author: {detailData.Author}</div>
@@ -39,7 +44,7 @@ function BlogDetailPage(data) {
                     <div class="comments-list space-y-6">
                         <BlogComment />
                     </div>
-                    
+
                 </div>
 
             </div>
