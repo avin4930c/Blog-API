@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
-import MainPage from './mainPage';
-import { ErrorPage } from './errorPage';
-import DetailPage from './detailPage';
-import SignupForm from './components/signupForm';
-import LoginForm from './components/loginForm';
+import { ErrorPage } from '../errorPage';
+import MainPage from '../pages/mainPage';
+import DetailPage from '../pages/detailPage';
+import AddBlogForm from '../components/addBlogForm';
+import SignupForm from '../components/signupForm';
+import LoginForm from '../components/loginForm';
 
 function Route() {
     const router = createBrowserRouter([
@@ -20,6 +21,11 @@ function Route() {
         {
             path: '/login',
             element: <LoginForm />,
+            errorElement: <ErrorPage />,
+        },
+        {
+            path: '/addBlog',
+            element: <AddBlogForm />,
             errorElement: <ErrorPage />,
         },
         {

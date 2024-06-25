@@ -1,5 +1,5 @@
-import BlogDetailPage from "./components/blogDetailPage";
-import NavBar from "./components/navbar";
+import BlogDetailPage from "../components/blogDetailPage";
+import NavBar from "../components/navbar";
 
 function DetailPage() {
     return (

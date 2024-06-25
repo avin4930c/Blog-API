@@ -1,4 +1,4 @@
-function BlogEditCard(data) {
+function BlogEditCard({data}) {
     return (
         <div className="w-3/4 border-2 rounded-lg bg-yellow-400 flex max-xl:flex-col">
             <div className="w-36 h-full bg-black max-lg:m-auto">

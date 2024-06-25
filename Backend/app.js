@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const blogRouter = require('./routes/blog');
 
 mongoose.set("strictQuery", false);
 const mongoDB = "mongodb+srv://avinash4930c:epA86x2T9FCX7UdJ@cluster0.wsag4uw.mongodb.net/blog-api?retryWrites=true&w=majority&appName=Cluster0";
@@ -62,6 +63,7 @@ app.use(limiter);
 
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
+app.use('/blog', blogRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
