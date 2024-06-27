@@ -47,6 +47,7 @@ exports.get_blog =  asyncHandler(async (req, res) => {
 exports.add_comment = asyncHandler(async (req, res) => {
     try {
         const { commentText } = req.body;
+        console.log('Adding comment:', commentText);
         const blogId = req.params.id;
         const comment = new Comment({
             blog_id: blogId,
@@ -54,6 +55,7 @@ exports.add_comment = asyncHandler(async (req, res) => {
             commentText,
         });
         await comment.save();
+        res.status(201).json({ message: 'Comment added successfully' });
     } catch (error) {
         console.error('Error during comment creation:', error);
         res.status(500).json({ errors: [{ msg: 'Internal server error' }] });

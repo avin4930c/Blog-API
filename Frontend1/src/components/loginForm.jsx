@@ -20,7 +20,6 @@ function LoginForm() {
     const [serverErrors, setServerErrors] = useState([]);
 
     const onSubmit = async (data) => {
-        console.log(data);
         try {
             const response = await fetch('http://localhost:3000/user/login', {
                 method: 'POST',
@@ -29,7 +28,6 @@ function LoginForm() {
                 },
                 body: JSON.stringify(data),
             });
-            console.log(response);
 
             if (response.ok) {
                 const responseData = await response.json();

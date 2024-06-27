@@ -15,6 +15,6 @@ router.get('/:id', blogController.get_blog);
 
 router.get('/:id/comments', blogController.get_comments);
 
-router.post('/:id/comments', authenticateJWT, blogController.add_comment);
+router.post('/:id/comment', authenticateJWT, blogController.add_comment);
 
 module.exports = router;

@@ -1,10 +1,9 @@
 import React from "react";
 import DOMPurify from "dompurify";
 import dateFormatter from "./dateFormatter";
-import BlogComment from "./blogComment";
 import BlogCommentMain from "./blogCommentMain";
 
-const BlogDetailPage = ({ data, id }) => {
+const BlogDetailPage = ({ data, paramId }) => {
   const formattedDate = dateFormatter({ inputDate: data.time_stamp });
   const sanitizedContent = DOMPurify.sanitize(data.content);
 
@@ -32,7 +31,7 @@ const BlogDetailPage = ({ data, id }) => {
           {/* Render sanitized HTML content */}
           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
-        <BlogCommentMain paramId={id} />
+        <BlogCommentMain paramId={paramId} />
       </div>
     </section>
   );
