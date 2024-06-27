@@ -26,25 +26,30 @@ function LoginForm() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    authorization: `Bearer ${authToken}`,
+                    roleCheck: 'true',
                 },
                 body: JSON.stringify(data),
             });
             console.log(response);
-
+    
             if (response.ok) {
                 const responseData = await response.json();
                 const token = responseData.token;   
                 if (!token) {
+                    setServerErrors([{ msg: 'No token received, login failed' }]);
                     return;
                 }
                 login(token);
                 setServerErrors([]);
                 navigate('/');
             } else {
+                const errorData = await response.json();
                 if (response.status === 401) {
-                    setServerErrors([{ msg: 'Invalid username or password' }]);
+                    setServerErrors([{ msg: errorData.message || 'Unauthorized: Invalid username or password' }]);
+                } else if (response.status === 403) {
+                    setServerErrors([{ msg: 'Forbidden: You do not have permission to perform this action' }]);
                 } else {
-                    const errorData = await response.json();
                     setServerErrors([{ msg: errorData.message || 'Login failed' }]);
                 }
             }
@@ -52,7 +57,7 @@ function LoginForm() {
             console.error('Error:', error);
             setServerErrors([{ msg: 'Network error, please try again later.' }]);
         }
-    };
+    };    
 
     if (authToken) {
         navigate('/');

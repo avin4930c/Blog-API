@@ -5,13 +5,12 @@ const blogSchema = new Schema({
     user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     title: { type: String, required: true },
     category: { type: String, required: true, enum: ['Tech', 'Food', 'Lifestyle', 'Gaming', 'Fitness', 'Cars', 'Other'] },
-    time_read: { type: Number, default: 0 },
+    time_read: { type: Number, required: true},
     desc: { type: String, required: true },
     imgUrl: { type: String, required: false },
     content: { type: String, required: true },
     published: { type: Boolean, default: false },
     time_stamp: { type: Date, default: Date.now },
-    comments: { type: Schema.Types.ObjectId, ref: 'Comment' }
 })
 
 module.exports = mongoose.model('Blog', blogSchema);

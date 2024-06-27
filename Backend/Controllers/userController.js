@@ -37,11 +37,22 @@ exports.register_post = asyncHandler(async (req, res) => {
 
 exports.login_post = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
-    console.log(email)
-    const user = await User.findOne({ mail_address: email });
-    console.log(user);
+    const roleCheck = req.headers['rolecheck'];
+
+    console.log("hello");
+
+    let user = "";
+    if (roleCheck === 'true') {
+        user = await User.findOne({ mail_address: email, role: 'admin' });
+        if (!user) {
+            return res.status(403).json("You are not authorized to login");
+        }
+    } else {
+        user = await User.findOne({ mail_address: email });
+    }
+
     if (user && await bcrypt.compare(password, user.password)) {
-        const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1min' });
+        const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '30min' });
         res.json({ auth: true, token });
     } else {
         res.status(401).send('Invalid username or password');

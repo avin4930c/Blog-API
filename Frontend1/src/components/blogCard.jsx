@@ -1,24 +1,28 @@
-import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import dateFormatter from "./dateFormatter";
 
 function BlogCard({ data }) {
-    return (
-        <Link to={`/blog/1`}>
-            <div className="blog-card bg-pink-500 max-w-sm">
-                <div>
-                    <img className="max-h-[200px]" src={data.blogImg} alt="Luffy with Meat" />
-                </div>
-                <div className="px-2">
-                    <p id="blog-category" className="py-2 pb-1">{data.blogCategory}</p>
-                    <h1 id="blog-title" className="text-2xl font-bold">{data.blogTitle}</h1>
-                    <p id="blog-time" className="text-sm pt-2 pb-1 font-semibold">2min read</p>
-                    <p id="blog-desc" className="text-lg text leading-tight pb-3 pt-0">{data.blogDesc}</p>
-                    <p id="blog-date" className="text-base">17th Jul 2024</p>
-                </div>
+    const formattedDate = dateFormatter({ inputDate: data.time_stamp})
+    const finalDesc = data.desc.slice(0, 100) + "...";
 
+    return (
+        <Link to={`/blog/${data._id}`} className="transition transform hover:scale-105 duration-300">
+            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="h-44 overflow-hidden">
+                    <img className="w-auto" src={data.imgUrl} alt={data.title} />
+                </div>
+                <div className="p-6">
+                    <div className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-widest">{data.category}</div>
+                    <h1 className="text-xl font-bold text-gray-800 mb-3">{data.title}</h1>
+                    <p className="text-gray-600 mb-4 text-sm">{finalDesc}</p>
+                    <div className="flex justify-between items-center text-gray-500 text-xs">
+                        <span>{data.time_read} min read</span>
+                        <span>{formattedDate}</span>
+                    </div>
+                </div>
             </div>
         </Link>
-    )
+    );
 }
 
-export default BlogCard
+export default BlogCard;

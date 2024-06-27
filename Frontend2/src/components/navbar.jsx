@@ -180,7 +180,7 @@ export default function NavBar() {
         </Disclosure>
         {!authToken && (
             <div className='flex justify-center py-2 bg-yellow-200'>
-                <Link to="/login"><span className='underline flex items-center pr-1'><FaArrowRightLong className='text-black mr-2' />Login</span></Link><span>for better experience</span>
+                <Link to="/login"><span className='underline flex items-center pr-1'><FaArrowRightLong className='text-black mr-2' />Login</span></Link><span>to perform actions</span>
             </div>
         )}
         </>
