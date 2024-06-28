@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import { GiSpikedDragonHead } from "react-icons/gi";
 import {
     Disclosure,
     DisclosureButton,
@@ -67,7 +68,10 @@ export default function NavBar() {
 
                                 <div className='px-5 py-2 pr-10 text-lg text-white font-bold pl-10'>
                                     <Link to="/" onClick={() => handleNavClick(0)}>
-                                        Transponder Medium
+                                        <div className='flex items-center'>
+                                            <GiSpikedDragonHead className='w-10 h-10 mx-2 text-white' />
+                                            Transponder Medium
+                                        </div>
                                     </Link>
                                 </div>
 
