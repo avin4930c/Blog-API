@@ -5,6 +5,7 @@ import DetailPage from '../pages/detailPage';
 import AddBlogForm from '../components/addBlogForm';
 import SignupForm from '../components/signupForm';
 import LoginForm from '../components/loginForm';
+import EditBlogForm from '../components/editBlogForm';
 
 function Route() {
     const router = createBrowserRouter([
@@ -31,6 +32,11 @@ function Route() {
         {
             path: '/blog/:id',
             element: <DetailPage />,
+            errorElement: <ErrorPage />,
+        },
+        {
+            path: '/editBlog/:id',
+            element: <EditBlogForm />,
             errorElement: <ErrorPage />,
         },
         {
