@@ -14,6 +14,8 @@ router.post('/register', userController.register_post);
 
 router.post('/fetchUser', authenticateJWT, userController.fetch_user);
 
+router.post('/updateUser', authenticateJWT, userController.update_user);
+
 router.post('/logout', userController.logout);
 
 module.exports = router;

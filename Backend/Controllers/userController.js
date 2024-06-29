@@ -52,10 +52,10 @@ exports.login_post = asyncHandler(async (req, res) => {
     }
 
     if (user && await bcrypt.compare(password, user.password)) {
-        const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '30min' });
+        const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET, { expiresIn: '1hr' });
         res.json({ auth: true, token });
     } else {
-        res.status(401).send('Invalid username or password');
+        res.status(401).json('Invalid username or password');
     }
 });
 
@@ -73,6 +73,24 @@ exports.fetch_user = asyncHandler(async (req, res) => {
         res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
     }
 })
+
+exports.update_user = asyncHandler(async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const { first_name, last_name, bio, imgUrl } = req.body;
+        const user = await User.findById(userId);
+        user.first_name = first_name;
+        user.last_name = last_name;
+        user.bio = bio;
+        user.imgUrl = imgUrl ? imgUrl : user.imgUrl;
+        await user.save();
+        res.json({ message: 'User updated successfully' });
+    } catch (error) {
+        console.error('Error updating user data:', error);
+        res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+    }
+});
+
 
 exports.logout = asyncHandler(async (req, res) => {
     req.session.destroy(err => {

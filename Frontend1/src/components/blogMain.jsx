@@ -38,10 +38,11 @@ function BlogMain() {
         <div className="container mx-auto px-4">
             <h1 className="text-4xl text-center py-6 font-bold text-gray-800 tracking-wide">Published Blogs</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {blogData.map((blog) => (
-                    <BlogCard key={blog._id} data={blog} />
-                ))}
-            </div>
+    {blogData.map((blog) => (
+        <BlogCard key={blog._id} data={blog} />
+    ))}
+</div>
+
         </div>
     );
 }

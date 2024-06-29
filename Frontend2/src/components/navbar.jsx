@@ -17,7 +17,6 @@ import { FaArrowRightLong } from "react-icons/fa6";
 
 const initialNavigation = [
     { name: 'Blogs', href: '/', current: true },
-    { name: 'Topics', href: '/topics', current: false },
 ];
 
 function classNames(...classes) {
@@ -69,7 +68,7 @@ export default function NavBar() {
                                 <div className='px-5 py-2 pr-10 text-lg text-white font-bold pl-10'>
                                     <Link to="/" onClick={() => handleNavClick(0)}>
                                     <div className='flex items-center'>
-                                    <GiSpikedDragonHead className='w-10 h-10 mx-2 text-blue-800' />
+                                    <GiSpikedDragonHead className='w-10 h-10 mx-2' />
                                     Transponder Medium
                                     </div>
                                     </Link>
@@ -95,7 +94,7 @@ export default function NavBar() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 max-sm:hidden">
                                     <div className='text-white'>
                                         {user ? "Hello, " + user.first_name : ""}
                                     </div>
@@ -108,7 +107,7 @@ export default function NavBar() {
                                                 <span className="sr-only">Open user menu</span>
                                                 <img
                                                     className="h-8 w-8 rounded-full"
-                                                    src="https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                                                    src={user?.imgUrl ? user.imgUrl : "https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"}
                                                     alt=""
                                                 />
                                             </MenuButton>

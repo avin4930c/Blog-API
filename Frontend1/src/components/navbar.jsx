@@ -14,6 +14,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link, useLocation } from 'react-router-dom'; // Added useLocation
 import { AuthContext } from '../context/AuthContext';
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useNavigate } from 'react-router-dom';
 
 const initialNavigation = [
     { name: 'Blogs', href: '/', current: true },
@@ -25,9 +26,10 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
-    const location = useLocation(); // Get current location
+    const location = useLocation();
     const [navigation, setNavigation] = useState(initialNavigation);
     const { user, authToken, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     // Update current navigation based on current location
     useEffect(() => {
@@ -96,7 +98,7 @@ export default function NavBar() {
                                     </div>
                                 </div>
                                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                    <div className='text-white'>
+                                    <div className='text-white max-sm:hidden'>
                                         {user ? "Hello, " + user.first_name : ""}
                                     </div>
 
@@ -107,8 +109,8 @@ export default function NavBar() {
                                                 <span className="absolute -inset-1.5" />
                                                 <span className="sr-only">Open user menu</span>
                                                 <img
-                                                    className="h-8 w-8 rounded-full"
-                                                    src="https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+                                                    className="h-9 w-9 rounded-full"
+                                                    src={user?.imgUrl ? user.imgUrl : 'https://as1.ftcdn.net/v2/jpg/03/46/83/96/1000_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'}
                                                     alt=""
                                                 />
                                             </MenuButton>
@@ -141,7 +143,8 @@ export default function NavBar() {
                                                         <MenuItem>
                                                             {({ active }) => (
                                                                 <a
-                                                                    href="#"
+                                                                    href=""
+                                                                    onClick={() => navigate('/editProfile')}
                                                                     className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                                 >
                                                                     Edit Profile
@@ -180,7 +183,6 @@ export default function NavBar() {
                                             'bg-gray-900 text-white',
                                             'block rounded-md px-3 py-2 text-base font-medium'
                                         )}
-                                        aria-current={item.current ? 'page' : undefined}
                                     >
                                         {item.name}
                                     </DisclosureButton>

@@ -74,7 +74,6 @@ const AddBlogForm = () => {
 
         try {
             data.content = contentValue;
-            console.log(data)
             const response = await fetch('http://localhost:3000/blog/addPost', {
                 method: 'POST',
                 headers: {

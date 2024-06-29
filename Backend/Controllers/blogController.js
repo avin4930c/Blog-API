@@ -34,6 +34,16 @@ exports.get_blogs = asyncHandler(async (req, res) => {
     }
 });
 
+exports.get_blog_topic = asyncHandler(async (req, res) => {
+    try {
+        const blogs = await Blog.find({ category: req.headers.topic, published: true });
+        res.status(200).json(blogs);
+    } catch (error) {
+        console.error('Error fetching blogs:', error);
+        res.status(500).json({ errors: [{ msg: 'Internal server error' }] });
+    }
+});
+
 exports.get_published_blogs = asyncHandler(async (req, res) => {
     try {
         const blogs = await Blog.find({ published: true });
@@ -76,7 +86,7 @@ exports.add_comment = asyncHandler(async (req, res) => {
 exports.get_comments = asyncHandler(async (req, res) => {
     try {
         const blogId = req.params.id;
-        let comments = await Comment.find({ blog_id: blogId }).populate('user_id');
+        let comments = await Comment.find({ blog_id: blogId }).populate('user_id').populate('blog_id', 'user_id');
         res.status(200).json(comments);
     } catch (error) {
         console.error('Error fetching comments:', error);

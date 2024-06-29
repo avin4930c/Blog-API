@@ -3,11 +3,9 @@ const router = express.Router();
 const authenticateJWT = require('../jwtAuth');
 const blogController = require('../Controllers/blogController');
 
-router.get('/addPost', (req, res) => {
-    res.send('posts');
-});
-
 router.get('/', blogController.get_blogs);
+
+router.get('/topic', blogController.get_blog_topic);
 
 router.post('/addPost', authenticateJWT, blogController.add_post);
 
