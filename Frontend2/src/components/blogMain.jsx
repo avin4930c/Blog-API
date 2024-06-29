@@ -35,7 +35,7 @@ function BlogMain() {
         <>
             <h1 className="text-3xl m-auto py-2 xl:max-w-[70%] md:max-w-[80%]">Published Blogs</h1>
             <section>
-            {user && <AddBlogButton />}
+            <AddBlogButton />
                 <div className="m-auto py-7 xl:max-w-[70%] md:max-w-[80%] flex flex-wrap justify-around gap-5">
                     {blogData.map((data, index) => {
                         return (
